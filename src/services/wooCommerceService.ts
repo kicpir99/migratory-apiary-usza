@@ -7,8 +7,8 @@ import { HONEY_PRODUCTS, HIVE_TREASURE_IDS } from '../data/honeyProducts';
  */
 export const WOO_CONFIG = {
   url: (import.meta.env.VITE_WOOCOMMERCE_URL || 'https://www.sklep.pasiekausza.pl').replace(/\/$/, ''),
-  consumerKey: import.meta.env.VITE_WOOCOMMERCE_KEY || 'ck_0f255ea2edcfdefd8b92d38745d26eb748ff9930',
-  consumerSecret: import.meta.env.VITE_WOOCOMMERCE_SECRET || 'cs_eac4c5ca089a58778f969d8756f0b4eba99d5c4c',
+  consumerKey: import.meta.env.VITE_WOOCOMMERCE_KEY || '',
+  consumerSecret: import.meta.env.VITE_WOOCOMMERCE_SECRET || '',
   get isConfigured(): boolean {
     return Boolean(this.url && this.consumerKey && this.consumerSecret);
   },
@@ -459,9 +459,12 @@ export async function createWooCommerceOrder(params: CreateOrderParams): Promise
             value: `Co ${item.subscriptionInterval} dni (1-Click Reorder)`
           });
         }
+        const lineTotal = (item.pricePln * item.quantity).toFixed(2);
         return {
           product_id: wooProductId,
           quantity: item.quantity,
+          subtotal: lineTotal,
+          total: lineTotal,
           meta_data: lineMeta,
         };
       }),
