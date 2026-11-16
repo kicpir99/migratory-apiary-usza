@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { HoneyProduct } from '../types';
 import { HONEY_PRODUCTS, HONEY_VARIETIES, HIVE_TREASURE_IDS } from '../data/honeyProducts';
 import { getEnrichedProduct } from '../utils/honeyHelpers';
+import { handleProductImageError } from '../utils/assets';
 import { 
   X, 
   Scale, 
@@ -282,16 +283,7 @@ export const ComparisonModal: React.FC<ComparisonModalProps> = ({
                   src={currentA.images?.[0] || currentA.imageUrl} 
                   alt={currentA.name}
                   className="w-7 h-7 sm:w-11 sm:h-11 object-cover rounded-lg sm:rounded-xl border border-[#D9821E]/20 shrink-0 bg-white group-hover/link:border-[#D9821E] group-hover/link:scale-105 transition-all shadow-2xs"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    const currentSrc = target.src;
-                    if (currentSrc.includes('sklep.pasiekausza.pl') && !currentSrc.includes('www.sklep.pasiekausza.pl')) {
-                      target.src = currentSrc.replace('sklep.pasiekausza.pl', 'www.sklep.pasiekausza.pl');
-                    } else if (!target.dataset.fallbackApplied) {
-                      target.dataset.fallbackApplied = 'true';
-                      target.src = 'https://pasiekausza.pl/wp-content/uploads/2022/02/miod-wielokwaitowy-650x650.jpg';
-                    }
-                  }}
+                  onError={handleProductImageError}
                 />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1 sm:gap-1.5">
@@ -355,16 +347,7 @@ export const ComparisonModal: React.FC<ComparisonModalProps> = ({
                   src={currentB.images?.[0] || currentB.imageUrl} 
                   alt={currentB.name}
                   className="w-7 h-7 sm:w-11 sm:h-11 object-cover rounded-lg sm:rounded-xl border border-[#D9821E]/20 shrink-0 bg-white group-hover/link:border-[#D9821E] group-hover/link:scale-105 transition-all shadow-2xs"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    const currentSrc = target.src;
-                    if (currentSrc.includes('sklep.pasiekausza.pl') && !currentSrc.includes('www.sklep.pasiekausza.pl')) {
-                      target.src = currentSrc.replace('sklep.pasiekausza.pl', 'www.sklep.pasiekausza.pl');
-                    } else if (!target.dataset.fallbackApplied) {
-                      target.dataset.fallbackApplied = 'true';
-                      target.src = 'https://pasiekausza.pl/wp-content/uploads/2022/02/miod-wielokwaitowy-650x650.jpg';
-                    }
-                  }}
+                  onError={handleProductImageError}
                 />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1 sm:gap-1.5">
@@ -449,16 +432,7 @@ export const ComparisonModal: React.FC<ComparisonModalProps> = ({
                     src={currentC.images?.[0] || currentC.imageUrl} 
                     alt={currentC.name}
                     className="w-7 h-7 sm:w-11 sm:h-11 object-cover rounded-lg sm:rounded-xl border border-[#D9821E]/20 shrink-0 bg-white group-hover/link:border-[#D9821E] group-hover/link:scale-105 transition-all shadow-2xs"
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      const currentSrc = target.src;
-                      if (currentSrc.includes('sklep.pasiekausza.pl') && !currentSrc.includes('www.sklep.pasiekausza.pl')) {
-                        target.src = currentSrc.replace('sklep.pasiekausza.pl', 'www.sklep.pasiekausza.pl');
-                      } else if (!target.dataset.fallbackApplied) {
-                        target.dataset.fallbackApplied = 'true';
-                        target.src = 'https://pasiekausza.pl/wp-content/uploads/2022/02/miod-wielokwaitowy-650x650.jpg';
-                      }
-                    }}
+                    onError={handleProductImageError}
                   />
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1 sm:gap-1.5">

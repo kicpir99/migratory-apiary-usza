@@ -1,4 +1,5 @@
 import { WOO_CONFIG } from './wooCommerceService';
+import { fetchWithTimeout } from '../utils/http';
 
 export interface FAQItem {
   question: string;
@@ -70,18 +71,16 @@ export async function fetchFAQs(): Promise<{ items: FAQItem[]; isLiveWP: boolean
   }
 
   try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000);
-
     // Próba pobrania pytań z WordPress Custom Post Type 'faq' lub endpointu dedykowanego
     const endpoint = `${WOO_CONFIG.url}/wp-json/wp/v2/faq?per_page=30`;
-    const response = await fetch(endpoint, {
-      method: 'GET',
-      headers: { 'Accept': 'application/json' },
-      signal: controller.signal,
-    });
-
-    clearTimeout(timeoutId);
+    const response = await fetchWithTimeout(
+      endpoint,
+      {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' },
+      },
+      5000
+    );
 
     if (!response.ok) {
       throw new Error(`WordPress FAQ API returned status ${response.status}`);

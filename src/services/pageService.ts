@@ -1,4 +1,5 @@
 import { WOO_CONFIG } from './wooCommerceService';
+import { fetchWithTimeout } from '../utils/http';
 
 export interface PageContent {
   title?: string;
@@ -32,17 +33,15 @@ export async function fetchWordPressPage(slug: string): Promise<PageContent> {
   }
 
   try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000);
-
     const endpoint = `${WOO_CONFIG.url}/wp-json/wp/v2/pages?slug=${encodeURIComponent(slug)}&status=publish`;
-    const response = await fetch(endpoint, {
-      method: 'GET',
-      headers: { 'Accept': 'application/json' },
-      signal: controller.signal,
-    });
-
-    clearTimeout(timeoutId);
+    const response = await fetchWithTimeout(
+      endpoint,
+      {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' },
+      },
+      5000
+    );
 
     if (!response.ok) {
       return { isLiveWP: false };

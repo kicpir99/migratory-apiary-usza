@@ -4,6 +4,7 @@ import { Sparkles, ShieldCheck, Heart, Droplets, Flame, BookOpen, ArrowRight, Ch
 import { ScrollReveal } from '../components/ScrollReveal';
 import { HONEY_PRODUCTS, HONEY_VARIETIES } from '../data/honeyProducts';
 import { useProducts } from '../context/ProductContext';
+import { handleProductImageError } from '../utils/assets';
 import { HoneyProduct } from '../types';
 
 const ProductDetailModal = React.lazy(() => import('../components/ProductDetailModal').then(m => ({ default: m.ProductDetailModal })));
@@ -216,16 +217,7 @@ export const OfferPage: React.FC<OfferPageProps> = ({ displayResolution, onAddTo
                     alt={item.title} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      const currentSrc = target.src;
-                      if (currentSrc.includes('sklep.pasiekausza.pl') && !currentSrc.includes('www.sklep.pasiekausza.pl')) {
-                        target.src = currentSrc.replace('sklep.pasiekausza.pl', 'www.sklep.pasiekausza.pl');
-                      } else if (!target.dataset.fallbackApplied) {
-                        target.dataset.fallbackApplied = 'true';
-                        target.src = 'https://pasiekausza.pl/wp-content/uploads/2022/02/miod-wielokwaitowy-650x650.jpg';
-                      }
-                    }}
+                    onError={handleProductImageError}
                   />
                   {/* Card Image Badge with clear descriptive label and icon */}
                   <div className="absolute top-4 left-4">

@@ -12,6 +12,7 @@ import { Check, X, Scale } from 'lucide-react';
 import { CartItem, HoneyProduct } from './types';
 import { useDisplayResolution } from './hooks/useDisplayResolution';
 import { HIVE_TREASURE_IDS } from './data/honeyProducts';
+import { handleProductImageError } from './utils/assets';
 
 // Lazy-loaded heavy overlay components & secondary pages
 const CartDrawer = React.lazy(() => import('./components/CartDrawer').then(m => ({ default: m.CartDrawer })));
@@ -100,16 +101,7 @@ function FloatingCompareBar({
                   src={p.imageUrl} 
                   alt="" 
                   className="w-4 h-4 rounded-full object-cover bg-[#EFE7DA]" 
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    const currentSrc = target.src;
-                    if (currentSrc.includes('sklep.pasiekausza.pl') && !currentSrc.includes('www.sklep.pasiekausza.pl')) {
-                      target.src = currentSrc.replace('sklep.pasiekausza.pl', 'www.sklep.pasiekausza.pl');
-                    } else if (!target.dataset.fallbackApplied) {
-                      target.dataset.fallbackApplied = 'true';
-                      target.src = 'https://pasiekausza.pl/wp-content/uploads/2022/02/miod-wielokwaitowy-650x650.jpg';
-                    }
-                  }}
+                  onError={handleProductImageError}
                 />
                 <span className="max-w-[90px] sm:max-w-[120px] truncate">{p.name}</span>
                 <button 

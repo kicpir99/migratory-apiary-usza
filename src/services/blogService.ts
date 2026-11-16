@@ -1,4 +1,5 @@
 import { WOO_CONFIG } from './wooCommerceService';
+import { fetchWithTimeout } from '../utils/http';
 
 export interface BlogPost {
   id: string;
@@ -122,18 +123,16 @@ export async function fetchBlogPosts(): Promise<{
 
   try {
     const endpoint = `${WOO_CONFIG.url}/wp-json/wp/v2/posts?_embed=1&per_page=12&status=publish`;
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 6000);
-
-    const response = await fetch(endpoint, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
+    const response = await fetchWithTimeout(
+      endpoint,
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
       },
-      signal: controller.signal,
-    });
-
-    clearTimeout(timeoutId);
+      6000
+    );
 
     if (!response.ok) {
       throw new Error(`WordPress API HTTP ${response.status}`);

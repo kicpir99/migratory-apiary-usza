@@ -1,4 +1,5 @@
 import { WOO_CONFIG } from './wooCommerceService';
+import { fetchWithTimeout } from '../utils/http';
 
 export interface ContactFormData {
   name: string;
@@ -15,29 +16,27 @@ export interface ContactFormData {
 export async function submitContactMessage(data: ContactFormData): Promise<{ success: boolean; message: string }> {
   if (WOO_CONFIG.url) {
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 6000);
-
       // Próba wysyłki przez autorski endpoint Pasieki lub Contact Form 7
       const endpoint = `${WOO_CONFIG.url}/wp-json/pasieka/v1/contact`;
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
+      const response = await fetchWithTimeout(
+        endpoint,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            name: data.name,
+            email: data.email,
+            phone: data.phone || '',
+            subject: data.subject,
+            message: data.message,
+            timestamp: new Date().toISOString(),
+          }),
         },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          phone: data.phone || '',
-          subject: data.subject,
-          message: data.message,
-          timestamp: new Date().toISOString(),
-        }),
-        signal: controller.signal,
-      });
-
-      clearTimeout(timeoutId);
+        6000
+      );
 
       if (response.ok) {
         const json = await response.json().catch(() => ({}));

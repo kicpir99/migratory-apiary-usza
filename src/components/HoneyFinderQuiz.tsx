@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { HoneyProduct } from '../types';
 import { HONEY_PRODUCTS } from '../data/honeyProducts';
+import { handleProductImageError } from '../utils/assets';
 import { X, Sparkles, Check, ArrowRight, RotateCcw } from 'lucide-react';
 
 interface HoneyFinderQuizProps {
@@ -196,16 +197,7 @@ export const HoneyFinderQuiz: React.FC<HoneyFinderQuizProps> = ({
                   alt={recommendedProduct.name}
                   referrerPolicy="no-referrer"
                   className="w-20 h-20 rounded-xl object-cover shrink-0"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    const currentSrc = target.src;
-                    if (currentSrc.includes('sklep.pasiekausza.pl') && !currentSrc.includes('www.sklep.pasiekausza.pl')) {
-                      target.src = currentSrc.replace('sklep.pasiekausza.pl', 'www.sklep.pasiekausza.pl');
-                    } else if (!target.dataset.fallbackApplied) {
-                      target.dataset.fallbackApplied = 'true';
-                      target.src = 'https://pasiekausza.pl/wp-content/uploads/2022/02/miod-wielokwaitowy-650x650.jpg';
-                    }
-                  }}
+                  onError={handleProductImageError}
                 />
                 <div>
                   <span className="text-[10px] uppercase font-bold tracking-wider text-[#945209] block">

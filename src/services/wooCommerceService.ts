@@ -1,5 +1,7 @@
 import { HoneyProduct, HoneyCategory, ConsistencyType, FlavorIntensity, HoneySizeOption, CartItem } from '../types';
 import { HONEY_PRODUCTS, HIVE_TREASURE_IDS } from '../data/honeyProducts';
+import { fetchWithTimeout } from '../utils/http';
+import { DEFAULT_PRODUCT_IMAGE } from '../utils/assets';
 
 /**
  * Konfiguracja integracji WooCommerce REST API.
@@ -110,7 +112,7 @@ const mapSizes = (woo: WooProductRaw): HoneySizeOption[] => {
  */
 export const normalizeImageUrl = (rawUrl?: string): string => {
   if (!rawUrl || typeof rawUrl !== 'string') {
-    return 'https://pasiekausza.pl/wp-content/uploads/2022/02/miod-wielokwaitowy-650x650.jpg';
+    return DEFAULT_PRODUCT_IMAGE;
   }
   let url = rawUrl.trim();
   url = url.replace(/^http:\/\//i, 'https://');
@@ -125,7 +127,7 @@ export const normalizeImageUrl = (rawUrl?: string): string => {
 export const mapWooProductToHoneyProduct = (woo: WooProductRaw): HoneyProduct => {
   const meta = woo.meta_data || [];
   const fallbackLocal = HONEY_PRODUCTS.find(p => p.id === woo.slug || p.id === String(woo.id));
-  const fallbackImg = fallbackLocal?.imageUrl || 'https://pasiekausza.pl/wp-content/uploads/2022/02/miod-wielokwaitowy-650x650.jpg';
+  const fallbackImg = fallbackLocal?.imageUrl || DEFAULT_PRODUCT_IMAGE;
   const rawPrimary = woo.images?.[0]?.src;
   const primaryImg = rawPrimary ? normalizeImageUrl(rawPrimary) : fallbackImg;
   const allImgs = woo.images && woo.images.length > 0
@@ -247,19 +249,17 @@ export async function fetchWooCommerceProducts(): Promise<{
     const authHeader = 'Basic ' + btoa(`${WOO_CONFIG.consumerKey}:${WOO_CONFIG.consumerSecret}`);
     const endpoint = `${WOO_CONFIG.url}/wp-json/wc/v3/products?per_page=100&status=publish`;
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 6000);
-
-    const response = await fetch(endpoint, {
-      method: 'GET',
-      headers: {
-        'Authorization': authHeader,
-        'Content-Type': 'application/json',
+    const response = await fetchWithTimeout(
+      endpoint,
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': authHeader,
+          'Content-Type': 'application/json',
+        },
       },
-      signal: controller.signal,
-    });
-
-    clearTimeout(timeoutId);
+      6000
+    );
 
     if (!response.ok) {
       throw new Error(`Błąd WooCommerce API: HTTP ${response.status} ${response.statusText}`);
