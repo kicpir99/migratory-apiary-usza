@@ -32,24 +32,24 @@ export const DEFAULT_BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 'dlaczego-miod-krystalizuje',
-    title: 'Dlaczego prawdziwy miód krystalizuje i dlaczego to dowód jakości?',
+    title: 'Dlaczego naturalny miód krystalizuje i co to oznacza?',
     date: '12 stycznia 2024',
     readTime: '3 min czytania',
     category: 'Edukacja',
     image: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=900&q=85',
     excerpt:
-      'Często pytacie nas, dlaczego miód zmienia stan z płynnego w stały. Wyjaśniamy zjawisko krystalizacji, stosunek glukozy do fruktozy oraz domowe sposoby na sprawdzenie autentyczności miodu.',
+      'Często pytacie, dlaczego miód przechodzi ze stanu płynnego w stały. Wyjaśniamy, skąd bierze się krystalizacja, jaką rolę gra stosunek glukozy do fruktozy i jak rozpoznać prawdziwy miód w domu.',
     featured: false,
   },
   {
     id: 'pierzga-jak-stosowac',
-    title: 'Pierzga pszczela – jak prawidłowo ją dawkować i przechowywać?',
+    title: 'Pierzga pszczela: jak ją dawkować i przechowywać?',
     date: '4 marca 2024',
     readTime: '5 min czytania',
     category: 'Apiterapia',
     image: 'https://pasiekausza.pl/wp-content/uploads/2022/02/pierzga.jpg',
     excerpt:
-      'Wszystko co musisz wiedzieć o najcenniejszym pokarmie ula. Praktyczny przewodnik po kuracji pierzgą dla dorosłych i dzieci, właściwościach i łączeniu z letnią wodą.',
+      'Praktyczny poradnik o dawkowaniu pierzgi u dorosłych i dzieci, jej przechowywaniu oraz przygotowywaniu naparu w letniej wodzie.',
     featured: false,
   },
 ];

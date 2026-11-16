@@ -127,7 +127,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 </h2>
 
                 <p className="text-sm sm:text-base text-[#594C3F] leading-relaxed">
-                  Jesteśmy rodzinną pasieką wędrowną prowadzoną przez Magdalenę i Piotra Szymkowicz. Nasze ule wędrują za najczystszymi pożytkami Dolnego Śląska – od wiosennych sadów i mniszka, przez aleje lipowe i lasy, po fioletowe wrzosowiska.
+                  Jesteśmy rodzinną pasieką wędrowną prowadzoną przez Magdalenę i Piotra Szymkowicz. Przewozimy ule na czyste pożytki Dolnego Śląska: od wiosennych sadów i mniszka, przez aleje lipowe i lasy, aż po wrzosowiska.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
@@ -244,7 +244,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     Pierzga, Propolis, Pyłek kwiatowy i Wosk
                   </h3>
                   <p className="text-xs sm:text-sm text-[#C7BDB0] leading-relaxed">
-                    Miód to dopiero początek. Odkryj najcenniejsze dary ula prosto z naszej wędrownej pasieki: pierzgę, propolis, pyłek pszczeli, czysty wosk oraz zdrowe odkłady pszczele.
+                    Oprócz miodów zbieramy i przygotowujemy też inne produkty pszczele z naszej pasieki: pierzgę, propolis, pyłek kwiatowy, czysty wosk i zdrowe odkłady pszczele.
                   </p>
                   <div className="pt-2">
                     <Link
@@ -275,7 +275,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 Opinie o Miodach i Skarbach z Pasieki Usza
               </h2>
               <p className="text-xs sm:text-sm text-[#665848] leading-relaxed">
-                Nasze zbiory trafiają do domów koneserów w całej Polsce. Poznaj wrażenia osób, które cenią prawdziwy, surowy miód i dary ula prosto z pasieki.
+                Zobacz, co piszą osoby z całej Polski, które zamówiły u nas surowy miód i produkty pszczele.
               </p>
 
               {/* Social Proof Summary Bar */}
