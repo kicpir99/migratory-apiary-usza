@@ -5,6 +5,7 @@ import { ShoppingBag, Star, Droplet, Sparkles, MapPin, Scale, Flame, Clock, Leaf
 import { HIVE_TREASURE_IDS } from '../data/honeyProducts';
 import { getProductBadges } from '../utils/honeyHelpers';
 import { handleProductImageError } from '../utils/assets';
+import { writeStorageString, removeStorageItem } from '../utils/storage';
 import { useAuth } from '../context/AuthContext';
 
 interface ProductCardProps {
@@ -38,13 +39,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const badges = getProductBadges(product);
 
   const handleProductClick = () => {
-    try {
-      sessionStorage.setItem('pasieka_last_product_id', product.id);
-      sessionStorage.setItem('pasieka_home_scroll_y', String(window.pageYOffset || document.documentElement.scrollTop || 0));
-      sessionStorage.removeItem('pasieka_from_hero');
-    } catch {
-      // ignore storage errors
-    }
+    const storage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+    writeStorageString(storage, 'pasieka_last_product_id', product.id);
+    writeStorageString(
+      storage,
+      'pasieka_home_scroll_y',
+      String(window.pageYOffset || document.documentElement.scrollTop || 0)
+    );
+    removeStorageItem(storage, 'pasieka_from_hero');
   };
 
   return (

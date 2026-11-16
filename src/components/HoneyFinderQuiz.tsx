@@ -54,7 +54,7 @@ export const HoneyFinderQuiz: React.FC<HoneyFinderQuizProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="relative w-full max-w-xl bg-[#FAF8F5] rounded-3xl border border-[#D9CDBD] shadow-2xl p-6 sm:p-8 overflow-hidden">
-        
+
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-[#E7DDCE]">
           <div className="flex items-center gap-2">
@@ -86,7 +86,7 @@ export const HoneyFinderQuiz: React.FC<HoneyFinderQuizProps> = ({
               <h4 className="font-serif text-xl font-bold text-[#23201C]">
                 Do czego najczęściej będziesz używać miodu?
               </h4>
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 {[
                   { id: 'odpornosc', title: 'Odporność i przeziębienie', desc: 'Miód o wysokiej aktywności enzymatycznej i aromacie lipy lub spadzi' },

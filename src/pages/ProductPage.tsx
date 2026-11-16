@@ -1246,8 +1246,8 @@ export const ProductPage: React.FC<ProductPageProps> = ({ onAddToCart, onOpenCom
                 type="button"
                 onClick={() => toggleFavorite(rawProduct.id)}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-xl border transition-all cursor-pointer shadow-xs ${isFav
-                    ? 'bg-rose-50 border-rose-300 text-rose-600'
-                    : 'bg-white border-[#D9821E]/20 text-[#594D42] hover:text-rose-600 hover:border-rose-300'
+                  ? 'bg-rose-50 border-rose-300 text-rose-600'
+                  : 'bg-white border-[#D9821E]/20 text-[#594D42] hover:text-rose-600 hover:border-rose-300'
                   }`}
                 title={isFav ? "Usuń z ulubionych miodów" : "Dodaj ten miód do ulubionych"}
                 id="btn-ulubione-naglowek"
@@ -1340,8 +1340,8 @@ export const ProductPage: React.FC<ProductPageProps> = ({ onAddToCart, onOpenCom
                     key={idx}
                     onClick={() => setActiveImageIndex(idx)}
                     className={`relative aspect-square rounded-2xl overflow-hidden border-2 transition-all cursor-pointer bg-white shadow-xs ${activeImageIndex === idx
-                        ? 'border-[#D9821E] ring-2 ring-[#D9821E]/30 scale-[1.02]'
-                        : 'border-[#D9821E]/20 hover:border-[#D9821E]/60 opacity-75 hover:opacity-100'
+                      ? 'border-[#D9821E] ring-2 ring-[#D9821E]/30 scale-[1.02]'
+                      : 'border-[#D9821E]/20 hover:border-[#D9821E]/60 opacity-75 hover:opacity-100'
                       }`}
                   >
                     <img
@@ -1621,8 +1621,8 @@ export const ProductPage: React.FC<ProductPageProps> = ({ onAddToCart, onOpenCom
                         type="button"
                         onClick={() => setSelectedSizeIdx(idx)}
                         className={`relative flex flex-col items-center justify-between p-3 pt-3.5 pb-2.5 rounded-2xl border text-center transition-all cursor-pointer ${isSelected
-                            ? 'bg-[#1B4332] text-white border-[#1B4332] shadow-sm ring-2 ring-[#1B4332]/25 scale-[1.01]'
-                            : 'bg-[#FAF6EE] text-[#594D42] border-[#D9821E]/25 hover:border-[#D9821E] hover:bg-white'
+                          ? 'bg-[#1B4332] text-white border-[#1B4332] shadow-sm ring-2 ring-[#1B4332]/25 scale-[1.01]'
+                          : 'bg-[#FAF6EE] text-[#594D42] border-[#D9821E]/25 hover:border-[#D9821E] hover:bg-white'
                           }`}
                       >
                         {isLargest && (
@@ -1671,8 +1671,8 @@ export const ProductPage: React.FC<ProductPageProps> = ({ onAddToCart, onOpenCom
                       type="button"
                       onClick={() => setPurchaseMode('one-time')}
                       className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${purchaseMode === 'one-time'
-                          ? 'bg-[#1B4332]/5 border-[#1B4332] text-[#1B4332] ring-1 ring-[#1B4332]'
-                          : 'bg-[#FAF8F5] border-[#DFCBB5] text-[#594D42] hover:bg-white'
+                        ? 'bg-[#1B4332]/5 border-[#1B4332] text-[#1B4332] ring-1 ring-[#1B4332]'
+                        : 'bg-[#FAF8F5] border-[#DFCBB5] text-[#594D42] hover:bg-white'
                         }`}
                     >
                       <div className="flex items-center justify-between font-bold">
@@ -1691,8 +1691,8 @@ export const ProductPage: React.FC<ProductPageProps> = ({ onAddToCart, onOpenCom
                       type="button"
                       onClick={() => setPurchaseMode('subscription')}
                       className={`p-3 rounded-2xl border text-left transition-all cursor-pointer relative overflow-hidden ${purchaseMode === 'subscription'
-                          ? 'bg-[#E5983A]/10 border-[#D9821E] text-[#8C4609] ring-1 ring-[#D9821E]'
-                          : 'bg-[#FAF8F5] border-[#DFCBB5] text-[#594D42] hover:bg-white'
+                        ? 'bg-[#E5983A]/10 border-[#D9821E] text-[#8C4609] ring-1 ring-[#D9821E]'
+                        : 'bg-[#FAF8F5] border-[#DFCBB5] text-[#594D42] hover:bg-white'
                         }`}
                     >
                       <span className="absolute top-0 right-0 bg-[#1B4332] text-white text-[9px] font-bold uppercase px-2 py-0.5 rounded-bl-lg">
@@ -1737,8 +1737,8 @@ export const ProductPage: React.FC<ProductPageProps> = ({ onAddToCart, onOpenCom
                               type="button"
                               onClick={() => setSubscriptionInterval(opt.days as 30 | 60 | 90)}
                               className={`py-2 px-1.5 rounded-xl text-center border transition-all cursor-pointer relative ${isActive
-                                  ? 'bg-[#1B4332] text-white border-[#1B4332] shadow-xs'
-                                  : 'bg-white text-[#524637] border-[#DFD3C2] hover:bg-[#FAF6EE] hover:border-[#D9821E]/50'
+                                ? 'bg-[#1B4332] text-white border-[#1B4332] shadow-xs'
+                                : 'bg-white text-[#524637] border-[#DFD3C2] hover:bg-[#FAF6EE] hover:border-[#D9821E]/50'
                                 }`}
                             >
                               {opt.badge && (
@@ -1869,8 +1869,8 @@ export const ProductPage: React.FC<ProductPageProps> = ({ onAddToCart, onOpenCom
                         type="button"
                         onClick={() => toggleFavorite(rawProduct.id)}
                         className={`px-4 sm:px-5 rounded-2xl border transition-all cursor-pointer flex items-center justify-center shrink-0 ${isFav
-                            ? 'bg-rose-50 border-rose-300 text-rose-600 shadow-xs'
-                            : 'bg-[#FAF6EE] border-[#D9821E]/30 text-[#594D42] hover:text-rose-600 hover:border-rose-300 hover:bg-rose-50/50'
+                          ? 'bg-rose-50 border-rose-300 text-rose-600 shadow-xs'
+                          : 'bg-[#FAF6EE] border-[#D9821E]/30 text-[#594D42] hover:text-rose-600 hover:border-rose-300 hover:bg-rose-50/50'
                           }`}
                         title={isFav ? "Usuń z ulubionych miodów" : "Dodaj ten miód do ulubionych"}
                         aria-label="Ulubione"
@@ -2040,8 +2040,8 @@ export const ProductPage: React.FC<ProductPageProps> = ({ onAddToCart, onOpenCom
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id as any)}
                       className={`flex items-center gap-2 py-2.5 px-3.5 sm:px-4 rounded-xl font-bold text-xs sm:text-sm whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${isActive
-                          ? 'bg-white text-[#1B4332] shadow-xs border border-[#D9821E]/30 scale-[1.01]'
-                          : 'text-[#6E6053] hover:text-[#241D17] hover:bg-white/60 border border-transparent'
+                        ? 'bg-white text-[#1B4332] shadow-xs border border-[#D9821E]/30 scale-[1.01]'
+                        : 'text-[#6E6053] hover:text-[#241D17] hover:bg-white/60 border border-transparent'
                         }`}
                     >
                       <Icon className={`w-4 h-4 transition-colors ${isActive ? 'text-[#D9821E]' : 'text-[#8C7A6B]'}`} />
@@ -2890,8 +2890,8 @@ export const ProductPage: React.FC<ProductPageProps> = ({ onAddToCart, onOpenCom
                       type="button"
                       onClick={() => setSelectedSizeIdx(idx)}
                       className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${isSelected
-                          ? 'bg-[#1B4332] text-white shadow-2xs'
-                          : 'text-[#594D42] hover:text-[#1B4332] hover:bg-[#FAF8F5]'
+                        ? 'bg-[#1B4332] text-white shadow-2xs'
+                        : 'text-[#594D42] hover:text-[#1B4332] hover:bg-[#FAF8F5]'
                         }`}
                     >
                       {size.gram}
@@ -2948,8 +2948,8 @@ export const ProductPage: React.FC<ProductPageProps> = ({ onAddToCart, onOpenCom
                 type="button"
                 onClick={() => toggleFavorite(rawProduct.id)}
                 className={`p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-center shrink-0 ${isFav
-                    ? 'bg-rose-50 border-rose-300 text-rose-600 shadow-2xs'
-                    : 'bg-white border-[#D9821E]/30 text-[#594D42] hover:text-rose-500 hover:border-rose-300'
+                  ? 'bg-rose-50 border-rose-300 text-rose-600 shadow-2xs'
+                  : 'bg-white border-[#D9821E]/30 text-[#594D42] hover:text-rose-500 hover:border-rose-300'
                   }`}
                 title={isFav ? "Usuń z ulubionych" : "Dodaj do ulubionych"}
               >

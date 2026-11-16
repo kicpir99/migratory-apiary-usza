@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState, useMemo, useCall
 import { HoneyProduct } from '../types';
 import { HONEY_PRODUCTS, isHiveTreasure } from '../data/honeyProducts';
 import { fetchWooCommerceProducts, WOO_CONFIG, normalizeImageUrl } from '../services/wooCommerceService';
+import { readStorageJson, writeStorageJson } from '../utils/storage';
 
 interface ProductContextType {
   products: HoneyProduct[];
@@ -30,15 +31,14 @@ const sanitizeProduct = (p: HoneyProduct): HoneyProduct => ({
 export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Początkowy stan inicjalizowany z pamięci podręcznej lub fallbacku
   const [products, setProducts] = useState<HoneyProduct[]>(() => {
-    try {
-      const cached = localStorage.getItem(CACHE_KEY);
-      if (cached) {
-        const parsed = JSON.parse(cached);
-        if (parsed.timestamp && Date.now() - parsed.timestamp < CACHE_TTL_MS && Array.isArray(parsed.data)) {
-          return parsed.data.map(sanitizeProduct);
-        }
-      }
-    } catch {}
+    const parsed = readStorageJson<{ timestamp?: number; data?: HoneyProduct[] } | null>(
+      typeof window !== 'undefined' ? window.localStorage : undefined,
+      CACHE_KEY,
+      null
+    );
+    if (parsed?.timestamp && Date.now() - parsed.timestamp < CACHE_TTL_MS && Array.isArray(parsed.data)) {
+      return parsed.data.map(sanitizeProduct);
+    }
     return HONEY_PRODUCTS.map(sanitizeProduct);
   });
 
@@ -64,15 +64,14 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
     if (res.error) setError(res.error);
 
     // Zapisz w cache
-    try {
-      localStorage.setItem(
-        CACHE_KEY,
-        JSON.stringify({
-          timestamp: Date.now(),
-          data: sanitizedProducts,
-        })
-      );
-    } catch {}
+    writeStorageJson(
+      typeof window !== 'undefined' ? window.localStorage : undefined,
+      CACHE_KEY,
+      {
+        timestamp: Date.now(),
+        data: sanitizedProducts,
+      }
+    );
 
     setIsLoading(false);
   }, []);

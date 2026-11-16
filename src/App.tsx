@@ -79,7 +79,7 @@ function FloatingCompareBar({
   }
 
   return (
-    <aside 
+    <aside
       aria-label="Pasek porównywania odmian miodów"
       className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 max-w-[95vw] sm:max-w-fit bg-[#FAF8F5]/95 backdrop-blur-md border border-[#D9821E]/35 rounded-2xl sm:rounded-full shadow-[0_12px_40px_rgba(35,32,28,0.2)] px-3.5 py-2.5 sm:px-5 sm:py-2.5 animate-in slide-in-from-bottom-6 duration-300 ring-1 ring-[#1B4332]/10"
     >
@@ -93,19 +93,19 @@ function FloatingCompareBar({
           </span>
           <div className="flex gap-1.5 flex-wrap items-center justify-center">
             {compareList.map(p => (
-              <div 
-                key={p.id} 
+              <div
+                key={p.id}
                 className="flex items-center gap-1.5 bg-white border border-[#D9821E]/25 rounded-full pl-1 pr-2 py-0.5 text-[11px] font-semibold text-[#4A4033] shadow-xs"
               >
-                <img 
-                  src={p.imageUrl} 
-                  alt="" 
-                  className="w-4 h-4 rounded-full object-cover bg-[#EFE7DA]" 
+                <img
+                  src={p.imageUrl}
+                  alt=""
+                  className="w-4 h-4 rounded-full object-cover bg-[#EFE7DA]"
                   onError={handleProductImageError}
                 />
                 <span className="max-w-[90px] sm:max-w-[120px] truncate">{p.name}</span>
-                <button 
-                  onClick={() => onRemove(p)} 
+                <button
+                  onClick={() => onRemove(p)}
                   className="text-[#9C8E7D] hover:text-[#8E5116] transition-colors cursor-pointer p-0.5"
                   title={`Usuń ${p.name} z porównania`}
                   aria-label={`Usuń ${p.name}`}
@@ -118,14 +118,14 @@ function FloatingCompareBar({
         </div>
 
         <div className="flex items-center gap-2 w-full sm:w-auto justify-end shrink-0 pt-1 sm:pt-0 border-t sm:border-t-0 border-[#D9821E]/15">
-          <button 
+          <button
             onClick={onClear}
             className="px-2.5 py-1.5 rounded-full text-xs font-bold text-[#786C5B] hover:text-[#23201C] hover:bg-[#EFE7DA] transition-colors cursor-pointer"
             title="Wyczyść listę porównania"
           >
             Wyczyść
           </button>
-          <button 
+          <button
             onClick={onOpenModal}
             className="flex-1 sm:flex-none px-4 py-2 rounded-full bg-[#1B4332] text-white text-xs font-bold hover:bg-[#143326] active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
             id="btn-otworz-porownywarke-floating"
@@ -154,7 +154,7 @@ function App() {
     try {
       sessionStorage.removeItem('warmia_home_preloaded');
       localStorage.removeItem('warmia_home_preloaded');
-    } catch {}
+    } catch { }
   }, []);
 
   const handleRemoveFromCompare = (product: HoneyProduct) => {
@@ -207,12 +207,12 @@ function App() {
         });
       }
       return [
-        ...prev, 
-        { 
-          product, 
-          weightGrams, 
-          selectedWeightGrams: weightGrams, 
-          pricePln, 
+        ...prev,
+        {
+          product,
+          weightGrams,
+          selectedWeightGrams: weightGrams,
+          pricePln,
           quantity: 1,
           subscriptionInterval,
         }
@@ -309,11 +309,11 @@ function App() {
 
         <Suspense fallback={<div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center"><div className="w-8 h-8 rounded-full border-2 border-amber-600 border-t-transparent animate-spin" /></div>}>
           <Routes>
-            <Route 
-              path="/" 
+            <Route
+              path="/"
               element={
-                <HomePage 
-                  onAddToCart={handleAddToCart} 
+                <HomePage
+                  onAddToCart={handleAddToCart}
                   displayResolution={displayResolution}
                   toggleCompare={toggleCompare}
                   compareList={compareList}
@@ -322,111 +322,111 @@ function App() {
                   hasPreloadedHome={hasPreloadedHome}
                   onPreloadComplete={() => setHasPreloadedHome(true)}
                 />
-              } 
+              }
             />
-            <Route 
-              path="/o-nas" 
+            <Route
+              path="/o-nas"
               element={
-                <AboutUsPage 
+                <AboutUsPage
                   displayResolution={displayResolution}
                   scrollToProducts={scrollToProducts}
                 />
-              } 
+              }
             />
-            <Route 
-              path="/sklep" 
+            <Route
+              path="/sklep"
               element={
-                <ShopPage 
-                  onAddToCart={handleAddToCart} 
+                <ShopPage
+                  onAddToCart={handleAddToCart}
                   displayResolution={displayResolution}
                   toggleCompare={toggleCompare}
                   compareList={compareList}
                   onOpenQuiz={() => setIsQuizOpen(true)}
                 />
-              } 
+              }
             />
-            <Route 
-              path="/oferta" 
+            <Route
+              path="/oferta"
               element={
-                <OfferPage 
+                <OfferPage
                   displayResolution={displayResolution}
                   onAddToCart={handleAddToCart}
                 />
-              } 
+              }
             />
-            <Route 
-              path="/skarby-ula" 
+            <Route
+              path="/skarby-ula"
               element={
-                <OfferPage 
+                <OfferPage
                   displayResolution={displayResolution}
                   onAddToCart={handleAddToCart}
                 />
-              } 
+              }
             />
-            <Route 
-              path="/blog" 
+            <Route
+              path="/blog"
               element={
-                <BlogPage 
+                <BlogPage
                   displayResolution={displayResolution}
                 />
-              } 
+              }
             />
-            <Route 
-              path="/kontakt" 
+            <Route
+              path="/kontakt"
               element={
-                <ContactPage 
+                <ContactPage
                   displayResolution={displayResolution}
                 />
-              } 
+              }
             />
-            <Route 
-              path="/konto" 
+            <Route
+              path="/konto"
               element={
-                <AccountPage 
-                  displayResolution={displayResolution}
-                  onAddToCart={handleAddToCart}
-                  onOpenCart={() => setIsCartOpen(true)}
-                />
-              } 
-            />
-            <Route 
-              path="/moje-konto" 
-              element={
-                <AccountPage 
+                <AccountPage
                   displayResolution={displayResolution}
                   onAddToCart={handleAddToCart}
                   onOpenCart={() => setIsCartOpen(true)}
                 />
-              } 
+              }
             />
-            <Route 
-              path="/produkt/:id" 
+            <Route
+              path="/moje-konto"
               element={
-                <ProductPage 
-                  onAddToCart={handleAddToCart} 
+                <AccountPage
+                  displayResolution={displayResolution}
+                  onAddToCart={handleAddToCart}
+                  onOpenCart={() => setIsCartOpen(true)}
+                />
+              }
+            />
+            <Route
+              path="/produkt/:id"
+              element={
+                <ProductPage
+                  onAddToCart={handleAddToCart}
                   onOpenCompare={(p) => {
                     toggleCompare(p);
                     setIsCompareModalOpen(true);
                   }}
                 />
-              } 
+              }
             />
-            <Route 
-              path="/zamowienie" 
+            <Route
+              path="/zamowienie"
               element={
-                <CheckoutPage 
+                <CheckoutPage
                   items={cartItems}
                   onClearCart={handleClearCart}
                   displayResolution={displayResolution}
                 />
-              } 
+              }
             />
             {/* Catch-all fallback */}
-            <Route 
-              path="*" 
+            <Route
+              path="*"
               element={
-                <HomePage 
-                  onAddToCart={handleAddToCart} 
+                <HomePage
+                  onAddToCart={handleAddToCart}
                   displayResolution={displayResolution}
                   toggleCompare={toggleCompare}
                   compareList={compareList}
@@ -435,7 +435,7 @@ function App() {
                   hasPreloadedHome={hasPreloadedHome}
                   onPreloadComplete={() => setHasPreloadedHome(true)}
                 />
-              } 
+              }
             />
           </Routes>
         </Suspense>

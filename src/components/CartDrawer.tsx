@@ -63,10 +63,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     deliveryMethod === 'odbior'
       ? 0
       : subtotal >= FREE_SHIPPING_THRESHOLD
-      ? 0
-      : deliveryMethod === 'paczkomat'
-      ? 15
-      : 18;
+        ? 0
+        : deliveryMethod === 'paczkomat'
+          ? 15
+          : 18;
 
   const total = subtotal + deliveryCost;
   const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
@@ -93,7 +93,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     if (remainingForFreeShipping <= 0 || remainingForFreeShipping > 55) return null;
 
     const cartProductIds = new Set(items.map(i => i.id));
-    
+
     // Starannie dobrana pula lekkich, bestsellerowych produktów impulsowych:
     const curatedCandidates = [
       { id: 'swieca-wosk-pszczeli', weight: 150 }, // 22 zł
@@ -160,12 +160,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   return (
     <div className="fixed inset-0 z-50 overflow-hidden bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="absolute inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
-        <div 
-          data-lenis-prevent 
-          onWheel={(e) => e.stopPropagation()} 
+        <div
+          data-lenis-prevent
+          onWheel={(e) => e.stopPropagation()}
           className="w-screen max-w-md bg-[#FAF8F5] border-l border-[#E3D6C4] shadow-2xl flex flex-col justify-between"
         >
-          
+
           {/* Top Bar */}
           <div className="p-5 border-b border-[#E7DDCE] bg-[#FAF8F5] flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -205,10 +205,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 {suggestedCrossSell && onAddToCart && (
                   <div className="mt-2 pt-2 border-t border-[#E3D4BE]/70 flex items-center justify-between gap-2.5 bg-[#FAF5ED]/90 p-2 rounded-lg border border-[#DECDB8]">
                     <div className="flex items-center gap-2 min-w-0">
-                      <img 
-                        src={suggestedCrossSell.product.imageUrl} 
+                      <img
+                        src={suggestedCrossSell.product.imageUrl}
                         alt={suggestedCrossSell.product.name}
-                        className="w-8 h-8 rounded-md object-cover border border-[#DFCDB8] shrink-0" 
+                        className="w-8 h-8 rounded-md object-cover border border-[#DFCDB8] shrink-0"
                         onError={handleProductImageError}
                       />
                       <div className="min-w-0">
@@ -396,11 +396,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   <div className="grid grid-cols-3 gap-1.5">
                     <button
                       onClick={() => setDeliveryMethod('paczkomat')}
-                      className={`p-2 rounded-lg text-left border transition-all text-[11px] ${
-                        deliveryMethod === 'paczkomat'
+                      className={`p-2 rounded-lg text-left border transition-all text-[11px] ${deliveryMethod === 'paczkomat'
                           ? 'border-[#945209] bg-[#F2E5D3] font-semibold text-[#2D2821]'
                           : 'border-[#DFCBB5] bg-[#FAF8F5] text-[#695D4E]'
-                      }`}
+                        }`}
                     >
                       <span className="block font-bold">Paczkomat</span>
                       <span className="text-[10px] text-[#847461]">
@@ -410,11 +409,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
                     <button
                       onClick={() => setDeliveryMethod('kurier')}
-                      className={`p-2 rounded-lg text-left border transition-all text-[11px] ${
-                        deliveryMethod === 'kurier'
+                      className={`p-2 rounded-lg text-left border transition-all text-[11px] ${deliveryMethod === 'kurier'
                           ? 'border-[#945209] bg-[#F2E5D3] font-semibold text-[#2D2821]'
                           : 'border-[#DFCBB5] bg-[#FAF8F5] text-[#695D4E]'
-                      }`}
+                        }`}
                     >
                       <span className="block font-bold">Kurier InPost</span>
                       <span className="text-[10px] text-[#847461]">
@@ -424,11 +422,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
                     <button
                       onClick={() => setDeliveryMethod('odbior')}
-                      className={`p-2 rounded-lg text-left border transition-all text-[11px] ${
-                        deliveryMethod === 'odbior'
+                      className={`p-2 rounded-lg text-left border transition-all text-[11px] ${deliveryMethod === 'odbior'
                           ? 'border-[#945209] bg-[#F2E5D3] font-semibold text-[#2D2821]'
                           : 'border-[#DFCBB5] bg-[#FAF8F5] text-[#695D4E]'
-                      }`}
+                        }`}
                     >
                       <span className="block font-bold">W pasiece</span>
                       <span className="text-[10px] text-[#847461]">0 zł</span>

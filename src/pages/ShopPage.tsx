@@ -6,6 +6,7 @@ import { ProductCard } from '../components/ProductCard';
 import { HONEY_PRODUCTS, HONEY_VARIETIES } from '../data/honeyProducts';
 import { useProducts } from '../context/ProductContext';
 import { getEnrichedProduct, isProductBestseller, isProductRecommended } from '../utils/honeyHelpers';
+import { readStorageString, writeStorageString } from '../utils/storage';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { Sparkles, ArrowUp, ShoppingBag, ShieldCheck, Truck, RotateCcw, ArrowRight } from 'lucide-react';
 
@@ -31,19 +32,21 @@ export const ShopPage: React.FC<ShopPageProps> = ({
   const [detailProduct, setDetailProduct] = useState<HoneyProduct | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [isMobileExpanded, setIsMobileExpanded] = useState<boolean>(() => {
-    try {
-      return sessionStorage.getItem('pasieka_shop_mobile_expanded') === 'true';
-    } catch {
-      return false;
-    }
-  });
+  const [isMobileExpanded, setIsMobileExpanded] = useState<boolean>(
+    () =>
+      readStorageString(
+        typeof window !== 'undefined' ? window.sessionStorage : undefined,
+        'pasieka_shop_mobile_expanded'
+      ) === 'true'
+  );
 
   const setMobileExpandedWithStorage = (expanded: boolean) => {
     setIsMobileExpanded(expanded);
-    try {
-      sessionStorage.setItem('pasieka_shop_mobile_expanded', expanded ? 'true' : 'false');
-    } catch {}
+    writeStorageString(
+      typeof window !== 'undefined' ? window.sessionStorage : undefined,
+      'pasieka_shop_mobile_expanded',
+      expanded ? 'true' : 'false'
+    );
   };
 
   const urlFlavorNote = searchParams.get('nuta');

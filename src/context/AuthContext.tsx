@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { fetchWooCommerceOrdersByEmail } from '../services/wooCommerceService';
+import { readStorageJson, writeStorageJson, removeStorageItem } from '../utils/storage';
 
 export interface SubscriptionItem {
   id: string;
@@ -202,25 +203,22 @@ const DEMO_USER: UserProfile = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<UserProfile | null>(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        return JSON.parse(stored);
-      }
-    } catch {}
-    return null;
-  });
+  const [user, setUser] = useState<UserProfile | null>(() =>
+    readStorageJson<UserProfile | null>(
+      typeof window !== 'undefined' ? window.localStorage : undefined,
+      STORAGE_KEY,
+      null
+    )
+  );
 
   const saveUser = (u: UserProfile | null) => {
     setUser(u);
-    try {
-      if (u) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(u));
-      } else {
-        localStorage.removeItem(STORAGE_KEY);
-      }
-    } catch {}
+    const storage = typeof window !== 'undefined' ? window.localStorage : undefined;
+    if (u) {
+      writeStorageJson(storage, STORAGE_KEY, u);
+    } else {
+      removeStorageItem(storage, STORAGE_KEY);
+    }
   };
 
   // Synchronizacja zamówień na żywo z bazy WooCommerce dla zalogowanego klienta
@@ -237,9 +235,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             ...prev.orders
           ];
           const updated = { ...prev, orders: mergedOrders };
-          try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-          } catch {}
+          writeStorageJson(
+            typeof window !== 'undefined' ? window.localStorage : undefined,
+            STORAGE_KEY,
+            updated
+          );
           return updated;
         });
       }

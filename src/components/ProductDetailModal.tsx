@@ -4,17 +4,17 @@ import { HoneyProduct } from '../types';
 import { getEnrichedProduct, CATEGORY_METADATA } from '../utils/honeyHelpers';
 import { handleProductImageError } from '../utils/assets';
 import { useAuth } from '../context/AuthContext';
-import { 
-  X, 
-  Star, 
-  ShieldCheck, 
-  Heart, 
-  Sparkles, 
-  Check, 
-  ShoppingBag, 
-  MapPin, 
-  Award, 
-  ExternalLink, 
+import {
+  X,
+  Star,
+  ShieldCheck,
+  Heart,
+  Sparkles,
+  Check,
+  ShoppingBag,
+  MapPin,
+  Award,
+  ExternalLink,
   Scale,
   Droplet,
   Info
@@ -95,11 +95,11 @@ const ProductDetailModalContent: React.FC<ProductDetailModalContentProps> = ({
   };
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 md:p-6 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={onClose}
     >
-      <div 
+      <div
         data-lenis-prevent
         className="relative w-full max-w-2xl lg:max-w-3xl bg-[#FAF6EE] rounded-2xl sm:rounded-3xl shadow-2xl border border-[#D9821E]/35 overflow-hidden h-[84dvh] sm:h-[86dvh] max-h-[780px] flex flex-col animate-in zoom-in-95 duration-200 my-auto"
         onClick={(e) => e.stopPropagation()}
@@ -111,11 +111,10 @@ const ProductDetailModalContent: React.FC<ProductDetailModalContentProps> = ({
             <button
               type="button"
               onClick={() => toggleFavorite(rawProduct.id)}
-              className={`p-2.5 rounded-full transition-all cursor-pointer shadow-sm border ${
-                isFav
+              className={`p-2.5 rounded-full transition-all cursor-pointer shadow-sm border ${isFav
                   ? 'bg-rose-50 border-rose-300 text-rose-600'
                   : 'bg-[#FAF6EE]/80 hover:bg-[#EADBCA] text-[#594D42] hover:text-rose-500 border-[#D9821E]/15'
-              }`}
+                }`}
               title={isFav ? "Usuń z ulubionych miodów" : "Dodaj do ulubionych miodów"}
               aria-label="Ulubione"
               id="modal-quick-fav-top-btn"
@@ -134,7 +133,7 @@ const ProductDetailModalContent: React.FC<ProductDetailModalContentProps> = ({
           </button>
         </div>
 
-        <div 
+        <div
           ref={scrollRef}
           data-lenis-prevent
           className="flex-1 min-h-0 overflow-y-auto overscroll-contain custom-modal-scroll p-5 sm:p-8 space-y-6 select-text"
@@ -242,16 +241,15 @@ const ProductDetailModalContent: React.FC<ProductDetailModalContentProps> = ({
                   <button
                     key={i}
                     onClick={() => setActivePhotoIdx(i)}
-                    className={`aspect-video rounded-lg overflow-hidden border-2 transition-all cursor-pointer bg-white ${
-                      activePhotoIdx === i 
-                        ? 'border-[#D9821E] ring-2 ring-[#D9821E]/30 scale-[1.02]' 
+                    className={`aspect-video rounded-lg overflow-hidden border-2 transition-all cursor-pointer bg-white ${activePhotoIdx === i
+                        ? 'border-[#D9821E] ring-2 ring-[#D9821E]/30 scale-[1.02]'
                         : 'border-[#D9821E]/20 opacity-70 hover:opacity-100'
-                    }`}
+                      }`}
                   >
-                    <img 
-                      src={img} 
-                      alt="miniaturka" 
-                      className="w-full h-full object-cover" 
+                    <img
+                      src={img}
+                      alt="miniaturka"
+                      className="w-full h-full object-cover"
                       onError={handleProductImageError}
                     />
                   </button>
@@ -334,7 +332,7 @@ const ProductDetailModalContent: React.FC<ProductDetailModalContentProps> = ({
                 <Sparkles className="w-4 h-4 text-[#D9821E]" />
                 Profil sensoryczny i cechy miodu
               </h3>
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
                 {/* Sweetness */}
                 <div className="bg-white p-3.5 rounded-xl border border-[#D9821E]/15 shadow-2xs">
@@ -344,11 +342,10 @@ const ProductDetailModalContent: React.FC<ProductDetailModalContentProps> = ({
                   </div>
                   <div className="flex gap-1">
                     {[1, 2, 3, 4, 5].map((lvl) => (
-                      <div 
-                        key={lvl} 
-                        className={`h-2 flex-1 rounded-full ${
-                          lvl <= product.tasteProfile.sweetness ? 'bg-[#D9821E]' : 'bg-[#EADDC7]'
-                        }`}
+                      <div
+                        key={lvl}
+                        className={`h-2 flex-1 rounded-full ${lvl <= product.tasteProfile.sweetness ? 'bg-[#D9821E]' : 'bg-[#EADDC7]'
+                          }`}
                       />
                     ))}
                   </div>
@@ -362,11 +359,10 @@ const ProductDetailModalContent: React.FC<ProductDetailModalContentProps> = ({
                   </div>
                   <div className="flex gap-1">
                     {[1, 2, 3, 4, 5].map((lvl) => (
-                      <div 
-                        key={lvl} 
-                        className={`h-2 flex-1 rounded-full ${
-                          lvl <= product.tasteProfile.acidity ? 'bg-[#1B4332]' : 'bg-[#EADDC7]'
-                        }`}
+                      <div
+                        key={lvl}
+                        className={`h-2 flex-1 rounded-full ${lvl <= product.tasteProfile.acidity ? 'bg-[#1B4332]' : 'bg-[#EADDC7]'
+                          }`}
                       />
                     ))}
                   </div>
@@ -380,11 +376,10 @@ const ProductDetailModalContent: React.FC<ProductDetailModalContentProps> = ({
                   </div>
                   <div className="flex gap-1">
                     {[1, 2, 3, 4, 5].map((lvl) => (
-                      <div 
-                        key={lvl} 
-                        className={`h-2 flex-1 rounded-full ${
-                          lvl <= product.tasteProfile.aroma ? 'bg-[#D9821E]' : 'bg-[#EADDC7]'
-                        }`}
+                      <div
+                        key={lvl}
+                        className={`h-2 flex-1 rounded-full ${lvl <= product.tasteProfile.aroma ? 'bg-[#D9821E]' : 'bg-[#EADDC7]'
+                          }`}
                       />
                     ))}
                   </div>
@@ -656,16 +651,14 @@ const ProductDetailModalContent: React.FC<ProductDetailModalContentProps> = ({
                     key={size.gram + idx}
                     type="button"
                     onClick={() => setSelectedSizeIndex(idx)}
-                    className={`relative flex items-center justify-between px-2 py-1.5 sm:px-3 sm:py-2 rounded-xl text-left transition-all cursor-pointer border ${
-                      isSelected
+                    className={`relative flex items-center justify-between px-2 py-1.5 sm:px-3 sm:py-2 rounded-xl text-left transition-all cursor-pointer border ${isSelected
                         ? 'bg-[#1B4332] text-white border-[#1B4332] shadow-xs ring-1 ring-[#1B4332]/20'
                         : 'bg-[#FAF6EE] text-[#241D17] border-[#D9821E]/30 hover:border-[#D9821E] hover:bg-white'
-                    }`}
+                      }`}
                   >
                     {isLargest && (
-                      <span className={`absolute -top-1.5 right-1 text-[7.5px] font-black uppercase tracking-wider px-1.5 py-0.2 rounded-full whitespace-nowrap ${
-                        isSelected ? 'bg-[#E5983A] text-[#14100C]' : 'bg-[#1B4332] text-[#FAF5ED]'
-                      }`}>
+                      <span className={`absolute -top-1.5 right-1 text-[7.5px] font-black uppercase tracking-wider px-1.5 py-0.2 rounded-full whitespace-nowrap ${isSelected ? 'bg-[#E5983A] text-[#14100C]' : 'bg-[#1B4332] text-[#FAF5ED]'
+                        }`}>
                         Najtaniej
                       </span>
                     )}
@@ -732,11 +725,10 @@ const ProductDetailModalContent: React.FC<ProductDetailModalContentProps> = ({
                 <button
                   type="button"
                   onClick={() => toggleFavorite(rawProduct.id)}
-                  className={`p-2 sm:p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-center shrink-0 ${
-                    isFav
+                  className={`p-2 sm:p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-center shrink-0 ${isFav
                       ? 'bg-rose-50 border-rose-300 text-rose-600 shadow-2xs'
                       : 'bg-[#FAF6EE] border-[#D9821E]/30 text-[#594D42] hover:text-rose-500 hover:border-rose-300'
-                  }`}
+                    }`}
                   title={isFav ? "Usuń z ulubionych miodów" : "Dodaj do ulubionych miodów"}
                   aria-label="Ulubione"
                   id="modal-quick-fav-bottom-btn"
@@ -748,11 +740,10 @@ const ProductDetailModalContent: React.FC<ProductDetailModalContentProps> = ({
               <button
                 type="button"
                 onClick={handleAdd}
-                className={`py-2 sm:py-2.5 px-3.5 sm:px-5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer shadow-md ${
-                  addedAnimation
+                className={`py-2 sm:py-2.5 px-3.5 sm:px-5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer shadow-md ${addedAnimation
                     ? 'bg-[#2E7D32] text-white scale-[1.01]'
                     : 'bg-[#1B4332] hover:bg-[#143326] text-white active:scale-[0.99]'
-                }`}
+                  }`}
                 id="modal-quick-add-btn"
               >
                 {addedAnimation ? (
