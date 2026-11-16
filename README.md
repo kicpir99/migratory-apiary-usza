@@ -7,6 +7,8 @@
 [![Vite](https://img.shields.io/badge/Vite-6.2-646cff.svg?logo=vite)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1-38bdf8.svg?logo=tailwind-css)](https://tailwindcss.com/)
 [![WooCommerce](https://img.shields.io/badge/WooCommerce-REST_API_v3-96588a.svg?logo=woocommerce)](https://woocommerce.com/)
+[![Vitest](https://img.shields.io/badge/Vitest-5.1-6E9F18.svg?logo=vitest)](https://vitest.dev/)
+[![CI](https://github.com/kicpir99/pasieka-wedrowna-usza/actions/workflows/ci.yml/badge.svg)](https://github.com/kicpir99/pasieka-wedrowna-usza/actions/workflows/ci.yml)
 [![Leaflet](https://img.shields.io/badge/Leaflet-1.9-199900.svg?logo=leaflet)](https://leafletjs.com/)
 
 ---
@@ -58,7 +60,7 @@ This project was engineered to replace an outdated monolithic WordPress theme wi
   - Interactive sensory hotspots displaying honey harvest data (diastase number, HMF content, moisture percentage, botanical origin).
   - Turntable behavior: subtle auto-spin on idle, instant pause on drag/touch, and automatic resumption after 2.5s.
 - **Multi-Criteria Honey Finder Quiz (`HoneyFinderQuiz`):** interactive recommendation engine mapping taste preferences and health benefits to the apiary's harvest varieties.
-- **Sensory Honey Comparator (`ComparisonModal`):** side-by-side analytical radar comparison of sweetness, acidity, aroma intensity, and crystallization speed.
+- **Sensory Honey Comparator (`ComparisonModal`):** side-by-side analytical comparison of up to 3 honey varieties (sweetness, acidity, aroma intensity, and crystallization speed).
 
 ---
 
@@ -72,6 +74,7 @@ This project was engineered to replace an outdated monolithic WordPress theme wi
 | **Motion & UX** | GSAP 3, Lenis | Hardware-accelerated transitions, inertia smooth scrolling |
 | **GIS & Mapping** | Leaflet 1.9, OpenStreetMap | Parcel locker picking via interactive vector maps |
 | **Backend & CMS** | WooCommerce REST API v3, WordPress | Headless inventory, order processing, ACF schema |
+| **Testing & CI** | Vitest 5.1, GitHub Actions | Unit test suite (`src/__tests__/`), automated typecheck & build |
 | **Deployment** | Apache / Nginx, GitHub Actions | CI/CD automation, `.htaccess` SPA fallback routing |
 
 ---
@@ -79,6 +82,7 @@ This project was engineered to replace an outdated monolithic WordPress theme wi
 ## 📁 Repository Structure
 
 ```text
+├── .github/workflows/          # GitHub Actions CI pipeline (typecheck, tests, build)
 ├── public/
 │   ├── .htaccess               # Apache mod_rewrite rules for SPA routing
 │   ├── assets/                 # Optimized WebP assets, photography & caustics
@@ -87,6 +91,7 @@ This project was engineered to replace an outdated monolithic WordPress theme wi
 ├── scripts/                    # Automation utilities
 │   └── sync_all_products_to_woocommerce.js  # Node.js batch sync with WooCommerce REST API
 ├── src/
+│   ├── __tests__/              # Vitest unit tests (assets, http, storage, WooCommerce)
 │   ├── components/             # Reusable UI modules (CartDrawer, InPostModal, 360Viewer)
 │   ├── context/                # Global state stores (AuthContext, ProductContext)
 │   ├── data/                   # Fallback datasets, sensory scales, harvest records
@@ -94,7 +99,7 @@ This project was engineered to replace an outdated monolithic WordPress theme wi
 │   ├── pages/                  # Route views (ShopPage, ProductPage, CheckoutPage)
 │   ├── services/               # REST API gateways (wooCommerceService, contactService)
 │   ├── types.ts                # TypeScript strict interface contracts
-│   └── utils/                  # Domain algorithms (tare calculator, frame preloader)
+│   └── utils/                  # Shared helpers & algorithms (assets, http, storage, tare, preloader)
 ├── .env.example                # Environment configuration template
 └── vite.config.ts              # Vite bundler configuration
 ```
@@ -136,10 +141,13 @@ npm run dev
 ```
 Open `http://localhost:3000` in your browser.
 
-### 5. Production build & verification
+### 5. Verification & production build
 ```bash
 # Type check without emitting files
 npm run lint
+
+# Run Vitest unit tests
+npm test
 
 # Compile optimized production bundle
 npm run build
@@ -193,7 +201,7 @@ Projekt powstał jako komercyjne wdrożenie headless e-commerce, którego celem 
   - Responsywny mechanizm hot-spotów sensorycznych (nuty smakowe, parametry laboratoryjne HMF, liczba diastazowa, zawartość wody).
   - Inteligentne zachowanie: auto-obrót w trybie idle, płynna pauza przy geście użytkownika i powrót do obrotu po 2.5s.
 - **Quiz Doboru Miodu (`HoneyFinderQuiz`):** algorytm wielokryterialny rekomendujący odmianę miodu na podstawie preferencji smakowych, dolegliwości zdrowotnych i przeznaczenia kulinarnego.
-- **Komparator Produktów (`ComparisonModal`):** zestawienie sensoryczne i analityczne dwóch wybranych odmian miodu (profil słodyczy, kwasowości, intensywności aromatu i krystalizacji).
+- **Komparator Produktów (`ComparisonModal`):** zestawienie sensoryczne i analityczne nawet 3 wybranych odmian miodu (profil słodyczy, kwasowości, intensywności aromatu i krystalizacji).
 
 ---
 
@@ -207,6 +215,7 @@ Projekt powstał jako komercyjne wdrożenie headless e-commerce, którego celem 
 | **Animacje** | GSAP 3, Lenis | Płynny scroll (smooth scrolling), choreografia wejść |
 | **Mapy & GIS** | Leaflet 1.9, OpenStreetMap | Wybór paczkomatów na żywej mapie wektorowej |
 | **Backend / API** | WooCommerce REST API v3, WordPress Core | Zarządzanie bazą produktów, logistyką i zamówieniami |
+| **Testy & CI** | Vitest 5.1, GitHub Actions | Testy jednostkowe (`src/__tests__/`), automatyczna weryfikacja PR/push |
 | **Deployment** | Nginx / Apache, GitHub Actions | CI/CD pipeline, automatyczny build i routing SPA `.htaccess` |
 
 ---
@@ -224,8 +233,9 @@ npm install
 # Uruchomienie serwera deweloperskiego
 npm run dev
 
-# Weryfikacja typów i build produkcyjny
+# Weryfikacja typów, testy jednostkowe i build produkcyjny
 npm run lint
+npm test
 npm run build
 ```
 

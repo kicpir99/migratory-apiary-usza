@@ -22,6 +22,15 @@ export const BlogPage: React.FC<BlogPageProps> = ({ displayResolution }) => {
     });
   }, []);
 
+  useEffect(() => {
+    if (!selectedPost) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedPost(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedPost]);
+
   return (
     <main className="min-h-screen bg-[#FAF7F2] pb-24">
       {/* Header Banner */}
@@ -181,8 +190,17 @@ export const BlogPage: React.FC<BlogPageProps> = ({ displayResolution }) => {
 
       {/* Modal czytnika artykułu z WordPressa */}
       {selectedPost && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
-          <div className="bg-[#FAF8F5] w-full max-w-3xl rounded-3xl border border-[#E3D6C4] shadow-2xl overflow-hidden my-8 max-h-[90vh] flex flex-col">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="blog-modal-title"
+          onClick={() => setSelectedPost(null)}
+          className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-[#FAF8F5] w-full max-w-3xl rounded-3xl border border-[#E3D6C4] shadow-2xl overflow-hidden my-8 max-h-[90vh] flex flex-col"
+          >
             {/* Modal Header */}
             <div className="p-5 border-b border-[#EAE0D1] bg-white flex items-center justify-between shrink-0">
               <div className="flex items-center gap-2">
@@ -204,7 +222,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ displayResolution }) => {
 
             {/* Modal Body */}
             <div className="p-6 sm:p-10 overflow-y-auto space-y-6 text-[#2E2822]">
-              <h1 className="font-serif text-2xl sm:text-4xl font-extrabold text-[#23201C] tracking-tight leading-tight">
+              <h1 id="blog-modal-title" className="font-serif text-2xl sm:text-4xl font-extrabold text-[#23201C] tracking-tight leading-tight">
                 {selectedPost.title}
               </h1>
 

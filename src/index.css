@@ -138,5 +138,27 @@ h1, h2, h3, .font-display {
   contain-intrinsic-size: 1px 650px;
 }
 
+/* Browser surfaces & keyboard accessibility themed to the apiary palette */
+input, textarea, select {
+  caret-color: #8B5337;
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 2px solid #D9821E;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hotspot-left,
+  .animate-hotspot-right,
+  .animate-hotspot-down {
+    animation: none !important;
+  }
+}
+
 
 

@@ -11,7 +11,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ displayResolution }) =
     name: '',
     email: '',
     phone: '',
-    subject: 'Zamówienie miodu / Pytanie ogólne',
+    subject: 'Zamówienie miodu',
     message: '',
   });
   const [isSending, setIsSending] = useState(false);
@@ -136,7 +136,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ displayResolution }) =
           {/* Right form card */}
           <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-10 border border-[#E7DCCE] shadow-md">
             {submitted ? (
-              <div className="py-16 text-center space-y-4">
+              <div className="py-16 text-center space-y-4" role="status" aria-live="polite">
                 <div className="w-14 h-14 rounded-full bg-[#E8F5E9] text-[#2E7D32] flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
@@ -148,7 +148,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({ displayResolution }) =
                 </p>
                 <button
                   type="button"
-                  onClick={() => setSubmitted(false)}
+                  onClick={() => {
+                    setSubmitted(false);
+                    setFormData((prev) => ({ ...prev, message: '' }));
+                  }}
                   className="px-5 py-2.5 rounded-xl bg-[#2D2821] text-[#FAF5ED] text-xs font-bold hover:bg-[#433B31] transition-colors cursor-pointer"
                 >
                   Wyślij kolejną wiadomość
@@ -167,12 +170,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({ displayResolution }) =
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-[#443A2F]">
+                    <label htmlFor="contact-name" className="block text-xs font-bold text-[#443A2F]">
                       Imię i nazwisko *
                     </label>
                     <input
+                      id="contact-name"
                       type="text"
                       required
+                      autoComplete="name"
                       value={formData.name}
                       onChange={e => setFormData({ ...formData, name: e.target.value })}
                       placeholder="np. Jan Kowalski"
@@ -181,12 +186,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({ displayResolution }) =
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-[#443A2F]">
+                    <label htmlFor="contact-phone" className="block text-xs font-bold text-[#443A2F]">
                       Numer telefonu *
                     </label>
                     <input
+                      id="contact-phone"
                       type="tel"
                       required
+                      autoComplete="tel"
                       value={formData.phone}
                       onChange={e => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="np. +48 600 000 000"
@@ -196,12 +203,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({ displayResolution }) =
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-[#443A2F]">
+                  <label htmlFor="contact-email" className="block text-xs font-bold text-[#443A2F]">
                     Adres e-mail *
                   </label>
                   <input
+                    id="contact-email"
                     type="email"
                     required
+                    autoComplete="email"
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
                     placeholder="twoj@email.pl"
@@ -210,10 +219,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({ displayResolution }) =
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-[#443A2F]">
+                  <label htmlFor="contact-subject" className="block text-xs font-bold text-[#443A2F]">
                     Temat wiadomości
                   </label>
                   <select
+                    id="contact-subject"
                     value={formData.subject}
                     onChange={e => setFormData({ ...formData, subject: e.target.value })}
                     className="w-full px-4 py-2.5 rounded-xl bg-[#FAF8F5] border border-[#DFCBB5] text-xs focus:ring-2 focus:ring-[#8B5337] focus:outline-none"
@@ -227,10 +237,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({ displayResolution }) =
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-[#443A2F]">
+                  <label htmlFor="contact-message" className="block text-xs font-bold text-[#443A2F]">
                     Wiadomość *
                   </label>
                   <textarea
+                    id="contact-message"
                     rows={4}
                     required
                     value={formData.message}
