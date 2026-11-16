@@ -15,11 +15,11 @@
 
 # 🇬🇧 English Version
 
-> Modern, high-performance Headless E-Commerce Single Page Application built for an artisanal migratory apiary (**Pasieka Usza**), decoupling a responsive React 19 + TypeScript + Vite frontend from a WordPress & WooCommerce REST API v3 production backend.
+> Headless e-commerce storefront for the migratory apiary **Pasieka Usza**, built with React 19, TypeScript, and Vite on top of a WordPress and WooCommerce REST API v3 backend.
 
 ## 🎯 Architecture & Project Overview
 
-This project was engineered to replace an outdated monolithic WordPress theme with an enterprise-grade headless architecture. By decoupling the presentation layer from the content management system, the store achieves sub-second page transitions, hardware-accelerated animations, and an elevated user experience—while preserving the familiar WordPress / WooCommerce dashboard for store managers.
+This project replaces a slow traditional WordPress theme with a React single-page application. Separating the storefront from the CMS keeps page navigation fast and lets us build custom interactive tools (such as the 360° jar viewer and parcel locker map), while store owners continue managing products, stock, and orders inside the standard WordPress and WooCommerce admin panel.
 
 ```
 ┌────────────────────────────────────────────────────────┐
@@ -41,26 +41,26 @@ This project was engineered to replace an outdated monolithic WordPress theme wi
 ## ✨ Key Features & Engineering Highlights
 
 ### 1. Headless WooCommerce Engine
-- **Two-way REST API Integration (`/wp-json/wc/v3`):** real-time product catalogs, category filtering, live stock levels, and automated order creation (`POST /orders`).
-- **Resilient Fallback & Stale-While-Revalidate Caching:** in case of API timeouts or backend maintenance, the application seamlessly serves verified product snapshots from `localStorage`, ensuring a **Zero Downtime UX**.
-- **Dynamic Weight & Unit Pricing:** automatic parsing of multi-weight product variations (400g / 1200g) with live price recalculation.
+- **Two-way REST API integration (`/wp-json/wc/v3`):** fetches live product catalogs, categories, and stock levels, and submits orders directly via `POST /orders`.
+- **Offline fallback & `localStorage` caching:** if the backend times out or is temporarily unreachable, the storefront falls back to cached snapshots in `localStorage` and local static data so browsing still works.
+- **Weight variants & pricing:** parses jar size attributes (400g / 1200g) and recalculates line-item prices dynamically.
 
-### 2. High-Conversion Checkout & Logistics
-- **InPost Parcel Locker Integration (14,000+ Lockers):**
-  - Searchable offline-first database indexed by locker code, street, and municipality.
-  - Interactive geolocated map powered by **Leaflet** and OpenStreetMap featuring custom SVG pins and dynamic viewport auto-centering.
-- **Volumetric Tare Weight & Parcel Dimension Algorithm:** computes net honey mass plus protective glass tare and corrugated honeycomb buffer to select locker capacity tiers automatically (InPost Size A / B / C).
-- **Free Shipping Threshold Optimizer:** dynamic hybrid recommendation engine suggesting impulse add-ons tailored to bridge the remaining spend required for free delivery (180 PLN).
-- **B2B Tax Compliance:** client-side validation of Polish tax identification numbers (NIP) adhering to Article 106e VAT requirements with invoice metadata dispatch.
-- **1-Click Reorder Subscriptions:** cyclical automated email reminders (30, 60, or 90 days) for honey replenishment.
+### 2. Checkout & Logistics
+- **InPost Parcel Lockers (14,000+ points):**
+  - Offline-searchable directory indexed by locker code, street, and city.
+  - Interactive **Leaflet** + OpenStreetMap picker with custom SVG pins and viewport auto-centering.
+- **Gross weight & parcel size calculator:** estimates total parcel weight (net honey mass, glass jar tare, and protective cardboard insert) to pick the right InPost locker size (A, B, or C).
+- **Free shipping progress bar:** suggests add-on products when the cart is close to the 180 PLN free-delivery threshold.
+- **B2B invoice support:** validates Polish NIP tax numbers according to Article 106e VAT rules and attaches invoice fields to WooCommerce order metadata.
+- **1-Click reorder reminders:** optional email reminders every 30, 60, or 90 days when honey runs low.
 
 ### 3. Interactive Product Experience
-- **Interactive 360° Jar Inspection (`FramelessJar360Viewer`):**
-  - Ultra-smooth frame-sequence player with WebP preloading and GPU rasterization.
-  - Interactive sensory hotspots displaying honey harvest data (diastase number, HMF content, moisture percentage, botanical origin).
-  - Turntable behavior: subtle auto-spin on idle, instant pause on drag/touch, and automatic resumption after 2.5s.
-- **Multi-Criteria Honey Finder Quiz (`HoneyFinderQuiz`):** interactive recommendation engine mapping taste preferences and health benefits to the apiary's harvest varieties.
-- **Sensory Honey Comparator (`ComparisonModal`):** side-by-side analytical comparison of up to 3 honey varieties (sweetness, acidity, aroma intensity, and crystallization speed).
+- **360° jar viewer (`FramelessJar360Viewer`):**
+  - Frame-sequence player with WebP preloading.
+  - Sensory hotspots showing harvest metadata (diastase number, HMF content, water percentage, botanical origin).
+  - Auto-rotates slowly when idle, pauses on drag or touch, and resumes after 2.5s.
+- **Honey Finder Quiz (`HoneyFinderQuiz`):** short questionnaire matching taste preferences and intended use to specific honey varieties.
+- **Honey Comparator (`ComparisonModal`):** side-by-side comparison of up to 3 honey varieties across sweetness, acidity, aroma intensity, and crystallization speed.
 
 ---
 
@@ -70,9 +70,9 @@ This project was engineered to replace an outdated monolithic WordPress theme wi
 |---|---|---|
 | **Core** | React 19, TypeScript 5.8 | Component architecture, strict domain modeling |
 | **Build & Tooling** | Vite 6.2, PostCSS | Fast HMR, code splitting, asset optimization |
-| **Styling & UI** | Tailwind CSS v4, Lucide React | Utility-first design, custom design tokens, SVG icon system |
-| **Motion & UX** | GSAP 3, Lenis | Hardware-accelerated transitions, inertia smooth scrolling |
-| **GIS & Mapping** | Leaflet 1.9, OpenStreetMap | Parcel locker picking via interactive vector maps |
+| **Styling & UI** | Tailwind CSS v4, Lucide React | Utility-first styling, custom palette, SVG icons |
+| **Motion & UX** | GSAP 3, Lenis | Scroll-triggered transitions, smooth scrolling |
+| **GIS & Mapping** | Leaflet 1.9, OpenStreetMap | Parcel locker picking on interactive vector maps |
 | **Backend & CMS** | WooCommerce REST API v3, WordPress | Headless inventory, order processing, ACF schema |
 | **Testing & CI** | Vitest 5.1, GitHub Actions | Unit test suite (`src/__tests__/`), automated typecheck & build |
 | **Deployment** | Apache / Nginx, GitHub Actions | CI/CD automation, `.htaccess` SPA fallback routing |
@@ -128,7 +128,7 @@ Copy `.env.example` to `.env`:
 ```bash
 cp .env.example .env
 ```
-Provide your WooCommerce REST API credentials or leave them unset to run the app in offline fallback / mock mode:
+Add your WooCommerce REST API credentials, or leave them unset to run in offline fallback mode:
 ```env
 VITE_WOOCOMMERCE_URL="https://your-domain.com"
 VITE_WOOCOMMERCE_KEY="ck_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -171,37 +171,37 @@ npm run build
 
 # 🇵🇱 Wersja Polska
 
-> Nowoczesna, bezgłowa (Headless) platforma e-commerce zrealizowana dla dolnośląskiej rzemieślniczej pasieki wędrownej **Pasieka Usza**, łącząca zoptymalizowany frontend SPA (React 19 + TypeScript + Vite) z produkcyjnym backendem WordPress & WooCommerce REST API v3.
+> Sklep internetowy typu headless dla dolnośląskiej pasieki wędrownej **Pasieka Usza**, zbudowany w React 19, TypeScript i Vite oraz zintegrowany z backendem WordPress i WooCommerce REST API v3.
 
 ## 🎯 Architektura i Założenia Projektu
 
-Projekt powstał jako komercyjne wdrożenie headless e-commerce, którego celem było zastąpienie tradycyjnego, ociężałego motywu WordPress nowoczesną aplikacją Single Page Application (SPA). Rozwiązanie zachowuje pełną elastyczność panelu administracyjnego WordPress / WooCommerce dla właścicieli pasieki, dostarczając klientowi końcowemu błyskawiczny czas ładowania, płynne animacje i doświadczenie zakupowe klasy premium.
+Projekt powstał, aby zastąpić wolny, klasyczny motyw WordPress lekką aplikacją SPA w Reactcie. Oddzielenie warstwy prezentacji od CMS-a przyspiesza przejścia między stronami i pozwala budować niestandardowe widoki (np. podgląd słoików 360° czy mapę paczkomatów), a właściciele pasieki nadal zarządzają produktami i zamówieniami w znanym panelu WordPress / WooCommerce.
 
 ---
 
 ## ✨ Kluczowe Funkcjonalności
 
 ### 1. Headless WooCommerce Engine
-- **Dwukierunkowa integracja REST API (`/wp-json/wc/v3`):** dynamiczne pobieranie katalogu produktów, kategorii, stanów magazynowych oraz bezpośrednie tworzenie zamówień (`POST /orders`).
-- **Inteligentny mechanizm Fallback & Stale-While-Revalidate:** w przypadku chwilowej niedostępności backendu aplikacja serwuje zoptymalizowane dane z pamięci podręcznej (`localStorage`), gwarantując 100% ciągłości działania (Zero Downtime UX).
-- **Obsługa wariantów i gramatur:** automatyczne mapowanie atrybutów wagowych (400g / 1200g) oraz przeliczanie cen jednostkowych.
+- **Dwukierunkowa integracja REST API (`/wp-json/wc/v3`):** pobieranie katalogu produktów, kategorii i stanów magazynowych oraz wysyłanie nowych zamówień (`POST /orders`).
+- **Fallback i cache w `localStorage`:** gdy backend nie odpowiada lub przekroczy limit czasu, aplikacja korzysta z zapisanej kopii w `localStorage` oraz lokalnych danych zapasowych, dzięki czemu sklep działa także offline.
+- **Obsługa wariantów i gramatur:** mapowanie atrybutów wagowych (400g / 1200g) oraz przeliczanie cen pozycji w koszyku.
 
-### 2. Zaawansowany Checkout & Logistyka
+### 2. Checkout i Logistyka
 - **Integracja InPost Paczkomaty 24/7:**
-  - Wbudowana baza ponad 14 000 oficjalnych maszyn InPost w Polsce z indeksowaniem po kodzie, ulicy i mieście.
-  - Interaktywna mapa geolokalizacyjna oparta o **Leaflet** i OpenStreetMap z niestandardowymi markerami i klastrowaniem.
-- **Kalkulator gabarytów i wagi brutto:** dynamiczny algorytm szacujący wagę zamówienia (miód netto + bezpieczne szkło słoika + opakowanie komorowe) w celu automatycznego doboru gabarytu skrytki (Gabaryt A / B / C).
-- **Progresywny pasek darmowej dostawy:** inteligentny rekomendator produktów impulsowych dobierający produkty brakujące do progu darmowej wysyłki (180 zł).
-- **Obsługa B2B / Faktury VAT:** pełna walidacja formalna numeru NIP oraz integracja danych do faktury przekazywanych w metadanych zamówienia WooCommerce.
-- **Subskrypcje 1-Click Reorder:** obsługa inteligentnych cyklicznych przypomnień o odnowieniu zapasów miodu (co 30, 60 lub 90 dni).
+  - Wbudowana baza ponad 14 000 paczkomatów w Polsce z wyszukiwaniem po kodzie, ulicy i mieście.
+  - Mapa oparta o **Leaflet** i OpenStreetMap z własnymi markerami i automatycznym centrowaniem.
+- **Kalkulator gabarytów i wagi brutto:** szacowanie wagi paczki (masa miodu, szkło słoika i tekturowa tuba ochronna) w celu automatycznego doboru gabarytu skrytki (Gabaryt A / B / C).
+- **Pasek darmowej dostawy:** podpowiedzi produktów pomagających uzupełnić koszyk do progu darmowej wysyłki (180 zł).
+- **Obsługa B2B / Faktury VAT:** walidacja numeru NIP po stronie klienta oraz przekazywanie danych do faktury w metadanych zamówienia WooCommerce.
+- **Przypomnienia 1-Click Reorder:** cykliczne przypomnienia e-mail o uzupełnieniu zapasów miodu (co 30, 60 lub 90 dni).
 
-### 3. Autorskie Komponenty Interaktywne
-- **Wizualizator Słoików 360° (`FramelessJar360Viewer`):**
-  - Odtwarzanie klatkowe z preloaderem WebP i akceleracją GPU.
-  - Responsywny mechanizm hot-spotów sensorycznych (nuty smakowe, parametry laboratoryjne HMF, liczba diastazowa, zawartość wody).
-  - Inteligentne zachowanie: auto-obrót w trybie idle, płynna pauza przy geście użytkownika i powrót do obrotu po 2.5s.
-- **Quiz Doboru Miodu (`HoneyFinderQuiz`):** algorytm wielokryterialny rekomendujący odmianę miodu na podstawie preferencji smakowych, dolegliwości zdrowotnych i przeznaczenia kulinarnego.
-- **Komparator Produktów (`ComparisonModal`):** zestawienie sensoryczne i analityczne nawet 3 wybranych odmian miodu (profil słodyczy, kwasowości, intensywności aromatu i krystalizacji).
+### 3. Komponenty Interaktywne
+- **Wizualizator słoików 360° (`FramelessJar360Viewer`):**
+  - Odtwarzacz sekwencji klatek WebP z wcześniejszym ładowaniem zasobów.
+  - Interaktywne punkty sensoryczne z parametrami zbioru (liczba diastazowa, HMF, zawartość wody, pochodzenie botaniczne).
+  - Powolny auto-obrót w spoczynku, zatrzymanie przy przeciągnięciu myszą lub dotykiem i wznowienie po 2,5 s.
+- **Quiz doboru miodu (`HoneyFinderQuiz`):** krótka ankieta dopasowująca odmianę miodu do preferencji smakowych i zastosowania.
+- **Komparator produktów (`ComparisonModal`):** zestawienie do 3 wybranych odmian miodu pod kątem słodyczy, kwasowości, intensywności aromatu i tempa krystalizacji.
 
 ---
 
@@ -212,8 +212,8 @@ Projekt powstał jako komercyjne wdrożenie headless e-commerce, którego celem 
 | **Core** | React 19, TypeScript 5.8 | Architektura komponentowa, ścisłe typowanie domenowe |
 | **Build & Tooling** | Vite 6.2, PostCSS | HMR, optymalizacja chunków, kompresja assetów |
 | **Styling** | Tailwind CSS v4, Lucide React | Utility-first styling, responsywny design, system ikon |
-| **Animacje** | GSAP 3, Lenis | Płynny scroll (smooth scrolling), choreografia wejść |
-| **Mapy & GIS** | Leaflet 1.9, OpenStreetMap | Wybór paczkomatów na żywej mapie wektorowej |
+| **Animacje** | GSAP 3, Lenis | Płynny scroll (smooth scrolling), animacje wejść |
+| **Mapy & GIS** | Leaflet 1.9, OpenStreetMap | Wybór paczkomatów na interaktywnej mapie wektorowej |
 | **Backend / API** | WooCommerce REST API v3, WordPress Core | Zarządzanie bazą produktów, logistyką i zamówieniami |
 | **Testy & CI** | Vitest 5.1, GitHub Actions | Testy jednostkowe (`src/__tests__/`), automatyczna weryfikacja PR/push |
 | **Deployment** | Nginx / Apache, GitHub Actions | CI/CD pipeline, automatyczny build i routing SPA `.htaccess` |
