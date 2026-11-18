@@ -1,4 +1,4 @@
-# Pasieka Usza – Headless E-Commerce Platform
+# Usza Apiary – Headless E-Commerce Platform
 
 > [English Version](#-english-version) | [Wersja Polska](#-wersja-polska)
 
@@ -15,7 +15,7 @@
 
 # 🇬🇧 English Version
 
-> Headless e-commerce storefront for the migratory apiary **Pasieka Usza**, built with React 19, TypeScript, and Vite on top of a WordPress and WooCommerce REST API v3 backend.
+> Headless e-commerce storefront for the migratory apiary **Usza Apiary**, built with React 19, TypeScript, and Vite on top of a WordPress and WooCommerce REST API v3 backend.
 
 ## 🎯 Architecture & Project Overview
 
